@@ -2,7 +2,7 @@ import { useState } from "react";
 import cities from "../lib/city.list.json";
 import Link from "next/link";
 
-interface City {
+export interface City {
   id: number;
   name: string;
   state: string;
