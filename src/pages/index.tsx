@@ -1,9 +1,13 @@
 import SearchBar from "../components/SearchBar";
 import Image from "next/image";
 
-type Props = {};
+type Props = {
+  apiKey: string;
+};
 
-export default function page({}: Props) {
+export default function Page({}: Props) {
+  //  console.log(apiKey);
+
   return (
     <div className="">
       <div className="flex items-center flex-col mt-10">

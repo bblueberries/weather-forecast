@@ -1,6 +1,7 @@
-/** @type {import('next').NextConfig} */
+// next.config.js
 const nextConfig = {
   reactStrictMode: true,
-}
-
-module.exports = nextConfig
+};
+require("dotenv").config();
+// console.log(process.env.API_KEY);
+module.exports = nextConfig;
