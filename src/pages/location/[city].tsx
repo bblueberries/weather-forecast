@@ -1,8 +1,8 @@
-import { log } from "util";
 import { City } from "../../components/SearchBar";
 
 type Props = {
   thisCity: City;
+  today: object;
 };
 
 export async function getServerSideProps(context: any) {
@@ -25,7 +25,8 @@ export async function getServerSideProps(context: any) {
   }
 
   const response = await fetch(
-    `https://api.openweathermap.org/data/2.5/weather?lat=44.34&lon=10.99&appid=${process.env.API_KEY}`
+    `https://api.weatherapi.com/v1/forecast.json?key=${process.env.API_KEY}&q=${foundCity.coord.lat},${foundCity.coord.lon}&days=3&aqi=no&alerts=no`
+    // `https://api.weatherapi.com/v1/current.json?key=${process.env.API_KEY}&q=${foundCity.coord.lat},${foundCity.coord.lon}&days=3&aqi=no&alerts=no`
   );
   const data = await response.json();
   // console.log(`${process.env.API_KEY}`);
@@ -36,15 +37,24 @@ export async function getServerSideProps(context: any) {
     };
   }
 
-  console.log(data);
+  // console.log(data.forecast);
 
   return {
     props: {
       thisCity: foundCity,
+      today: data.forecast.forecastday[0],
     },
   };
 }
 
-export default function Page({ thisCity }: Props) {
-  return <div>This is {thisCity.name} the page</div>;
+export default function Page({ thisCity, today }: Props) {
+  console.log(today);
+
+  return (
+    <>
+      <div>
+        This is {thisCity.coord.lat}, {thisCity.coord.lon}the page <br /> right
+      </div>
+    </>
+  );
 }
