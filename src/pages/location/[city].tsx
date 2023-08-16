@@ -1,8 +1,11 @@
+import { Container } from "postcss";
 import { City } from "../../components/SearchBar";
+import Image from "next/image";
 
 type Props = {
   thisCity: City;
-  today: object;
+  today: any;
+  locationData: any;
 };
 
 export async function getServerSideProps(context: any) {
@@ -37,23 +40,51 @@ export async function getServerSideProps(context: any) {
     };
   }
 
-  // console.log(data.forecast);
+  console.log(data.location.localtime);
 
   return {
     props: {
       thisCity: foundCity,
       today: data.forecast.forecastday[0],
+      locationData: data.location,
     },
   };
 }
 
-export default function Page({ thisCity, today }: Props) {
-  console.log(today);
+export default function Page({ thisCity, today, locationData }: Props) {
+  const currentLocalHour = locationData.localtime
+    .split(" ")
+    .pop()
+    .split(":")[0];
+
+  const currentHourIndex = today.hour.findIndex(
+    (hourData: any) =>
+      parseInt(currentLocalHour) <=
+      parseInt(hourData.time.split(" ").pop().split(":")[0])
+  );
+  console.log(today.hour);
 
   return (
     <>
-      <div>
-        This is {thisCity.coord.lat}, {thisCity.coord.lon}the page <br /> right
+      <div className="flex flex-col items-center">
+        This is {thisCity.coord.lat}, {thisCity.coord.lon} the page <br />
+        <div className=" flex border border-black overflow-x-auto whitespace-nowrap mt-32 mx-20 p-6 w-9/12">
+          {today.hour
+            .slice(currentHourIndex)
+            .map((hourData: any, index: number) => (
+              <div
+                key={index}
+                className="border border-red-600 mx-3 p-2 rounded flex flex-col items-center"
+              >
+                <p>{hourData.time.split(" ").pop()}</p>
+                <img
+                  src={`https:${hourData.condition.icon}`}
+                  alt="hello"
+                  loading="lazy"
+                />
+              </div>
+            ))}
+        </div>{" "}
       </div>
     </>
   );
