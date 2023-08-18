@@ -1,6 +1,7 @@
 import { Container } from "postcss";
 import { City } from "../../components/SearchBar";
 import Image from "next/image";
+import { log } from "console";
 
 type Props = {
   thisCity: City;
@@ -40,7 +41,7 @@ export async function getServerSideProps(context: any) {
     };
   }
 
-  console.log(data.location.localtime);
+  console.log(data.forecast.forecastday[0]);
 
   return {
     props: {
@@ -62,12 +63,15 @@ export default function Page({ thisCity, today, locationData }: Props) {
       parseInt(currentLocalHour) <=
       parseInt(hourData.time.split(" ").pop().split(":")[0])
   );
-  console.log(today.hour);
 
   return (
     <>
-      <div className="flex flex-col items-center">
-        This is {thisCity.coord.lat}, {thisCity.coord.lon} the page <br />
+      <div className="flex flex-col items-center ">
+        <p className="mt-3 text-3xl">
+          This is <span className=" text-red-600">{locationData.name}</span>{" "}
+          page
+        </p>
+        <br />
         <div className=" flex border border-black overflow-x-auto whitespace-nowrap mt-32 mx-20 p-6 w-9/12">
           {today.hour
             .slice(currentHourIndex)
@@ -82,9 +86,10 @@ export default function Page({ thisCity, today, locationData }: Props) {
                   alt="hello"
                   loading="lazy"
                 />
+                <p>temp {hourData.temp_c}°C</p>
               </div>
             ))}
-        </div>{" "}
+        </div>
       </div>
     </>
   );
