@@ -78,15 +78,17 @@ export default function Page({ thisCity, today, locationData }: Props) {
             .map((hourData: any, index: number) => (
               <div
                 key={index}
-                className="border border-red-600 mx-3 p-2 rounded flex flex-col items-center"
+                className="border-2 border-gray-300 mx-3 py-4 px-7 rounded flex flex-col items-center "
               >
-                <p>{hourData.time.split(" ").pop()}</p>
+                <p className=" font-bold mb-2">
+                  {hourData.time.split(" ").pop()}
+                </p>
                 <img
                   src={`https:${hourData.condition.icon}`}
                   alt="hello"
                   loading="lazy"
                 />
-                <p>temp {hourData.temp_c}°C</p>
+                <p className=" text-sm mt-2">{hourData.temp_c}°C</p>
               </div>
             ))}
         </div>
