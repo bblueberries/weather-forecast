@@ -70,7 +70,42 @@ export default function Page({ todayWeather, locationData }: Props) {
           page
         </p>
         <br />
-
+        <div className=" border border-black rounded w-9/12 p-4 flex justify-between xl:px-16 xl:py-8">
+          <div>
+            <p className=" font-extrabold text-2xl">{locationData.name}</p>
+            <p className=" font-semibold text-lg mt-2 ml-1 ">
+              {todayWeather.day.maxtemp_c}°C&nbsp;&nbsp;
+              <span className=" text-gray-500 text-sm">
+                {todayWeather.day.mintemp_c}°C
+              </span>
+            </p>
+            <div className="flex mt-10">
+              <div className="flex flex-col mr-2">
+                <p>Sunrise</p>
+                <p className=" text-sm text-gray-600 mt-1">
+                  {todayWeather.astro.sunrise}
+                </p>
+              </div>
+              <div className="flex flex-col ml-2">
+                {" "}
+                <p>Sunset</p>
+                <p className="text-sm  text-gray-600 mt-1">
+                  {todayWeather.astro.sunset}
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col items-center  justify-center">
+            <img
+              src={`https:${todayWeather.day.condition.icon}`}
+              loading="lazy"
+              width={"100%"}
+            />
+            <p className="text-lg font-semibold">
+              {todayWeather.day.condition.text}
+            </p>
+          </div>
+        </div>
         <HourlyWeather
           todayWeather={todayWeather}
           currentHourIndex={currentHourIndex}
