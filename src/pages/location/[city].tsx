@@ -1,11 +1,9 @@
-import { Container } from "postcss";
 import { City } from "../../components/SearchBar";
-import Image from "next/image";
-import { log } from "console";
+import HourlyWeather from "../../components/HourlyWeather";
 
 type Props = {
   thisCity: City;
-  today: any;
+  todayWeather: any;
   locationData: any;
 };
 
@@ -45,20 +43,20 @@ export async function getServerSideProps(context: any) {
 
   return {
     props: {
-      thisCity: foundCity,
-      today: data.forecast.forecastday[0],
+      todayWeather: data.forecast.forecastday[0],
       locationData: data.location,
     },
   };
 }
 
-export default function Page({ thisCity, today, locationData }: Props) {
+export default function Page({ todayWeather, locationData }: Props) {
   const currentLocalHour = locationData.localtime
     .split(" ")
     .pop()
     .split(":")[0];
 
-  const currentHourIndex = today.hour.findIndex(
+  const currentHourIndex = todayWeather.hour.findIndex(
+    //use to show hourly weather only from current time
     (hourData: any) =>
       parseInt(currentLocalHour) <=
       parseInt(hourData.time.split(" ").pop().split(":")[0])
@@ -72,26 +70,11 @@ export default function Page({ thisCity, today, locationData }: Props) {
           page
         </p>
         <br />
-        <div className=" flex border border-black overflow-x-auto whitespace-nowrap mt-32 mx-20 p-6 w-9/12">
-          {today.hour
-            .slice(currentHourIndex)
-            .map((hourData: any, index: number) => (
-              <div
-                key={index}
-                className="border-2 border-gray-300 mx-3 py-4 px-7 rounded flex flex-col items-center "
-              >
-                <p className=" font-bold mb-2">
-                  {hourData.time.split(" ").pop()}
-                </p>
-                <img
-                  src={`https:${hourData.condition.icon}`}
-                  alt="hello"
-                  loading="lazy"
-                />
-                <p className=" text-sm mt-2">{hourData.temp_c}°C</p>
-              </div>
-            ))}
-        </div>
+
+        <HourlyWeather
+          todayWeather={todayWeather}
+          currentHourIndex={currentHourIndex}
+        />
       </div>
     </>
   );
