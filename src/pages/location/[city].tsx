@@ -66,8 +66,7 @@ export default function Page({ todayWeather, locationData }: Props) {
     <div className=" xl:p-8">
       <div className="flex flex-col items-center bg-gray-100 min-h-screen rounded-xl">
         <SearchBar />
-        <br />
-        <div className=" border border-black rounded w-11/12 xl:w-9/12 p-4 flex justify-between xl:px-16 xl:py-8 bg-white xl:mt-24">
+        <div className=" border border-black rounded w-11/12 xl:w-9/12 p-4 flex justify-between xl:px-16 xl:py-8 bg-white mt-10 xl:mt-20">
           <div>
             <p className=" font-extrabold text-xl xl:text-2xl">
               {locationData.name}
