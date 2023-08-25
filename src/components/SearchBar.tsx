@@ -57,7 +57,7 @@ export default function SearchBar({}: Props) {
   };
 
   return (
-    <div className="flex flex-col item-center justify-center w-3/12">
+    <div className="flex flex-col item-center justify-center w-10/12 xl:w-3/12 mt-5">
       <span className="text-center font-medium">SEARCH YOUR CITY HERE</span>
       <div className="group mt-3 relative w-full">
         <input

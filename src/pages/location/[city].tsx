@@ -1,6 +1,6 @@
 import { City } from "../../components/SearchBar";
 import HourlyWeather from "../../components/HourlyWeather";
-
+import SearchBar from "../../components/SearchBar";
 type Props = {
   thisCity: City;
   todayWeather: any;
@@ -65,10 +65,7 @@ export default function Page({ todayWeather, locationData }: Props) {
   return (
     <div className=" xl:p-8">
       <div className="flex flex-col items-center bg-gray-100 min-h-screen rounded-xl">
-        <p className="mt-3 text-3xl">
-          This is <span className=" text-red-600">{locationData.name}</span>{" "}
-          page
-        </p>
+        <SearchBar />
         <br />
         <div className=" border border-black rounded w-11/12 xl:w-9/12 p-4 flex justify-between xl:px-16 xl:py-8 bg-white xl:mt-24">
           <div>
