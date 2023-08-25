@@ -55,38 +55,38 @@ export default function SearchBar({}: Props) {
       return setResults(matchingCities);
     }
   };
-
+  const handleLinkClick = () => {
+    setValue("");
+  };
   return (
     <div className="flex flex-col item-center justify-center w-10/12 xl:w-3/12 mt-10">
       <span className="text-center font-medium">SEARCH YOUR CITY HERE</span>
       <div className="group mt-3 relative w-full">
         <input
           type="text"
-          className="relative p-2 w-full border border-blue-300 rounded-md text-lg font-light shadow-sm shadow-blue-300 group-hover:border-blue-400 focus:outline-none 
+          className="relative p-2 w-full border border-gray-500 rounded-md text-lg font-light shadow-sm shadow-gray-300 group-hover:border-black focus:outline-none 
           sm:w-full"
           value={value}
           onChange={HandleChange}
         />
 
         {value.length >= 3 && (
-          <ul className="absolute px-2 py-1 rounded border border-blue-300 mt-3 w-full shadow-sm shadow-blue-300 bg-white group-hover:border-blue-400">
+          <ul className="absolute px-2 py-1 rounded border border-gray-500 mt-3 w-full shadow-sm shadow-gray-300 bg-white group-hover:border-black">
             {results.length > 0 ? (
               results.map((city) => (
-                <li
-                  key={city.id}
-                  className="bg-white font-light border-b p-2 last:border-none hover:bg-slate-100 hover:rounded-lg"
-                >
-                  <Link href={`/location/${city.slug}`}>
+                <Link href={`/location/${city.slug}`} onClick={handleLinkClick}>
+                  <li
+                    key={city.id}
+                    className="bg-white font-light border-b p-2 last:border-none hover:bg-slate-100 hover:rounded-lg"
+                  >
                     {city.name}
                     {city.state ? `, ${city.state}` : ""}
                     &nbsp;({city.country})
-                  </Link>
-                </li>
+                  </li>
+                </Link>
               ))
             ) : (
-              <li className="font-light text-pink-300 py-2">
-                CAN NOT FIND YOUR CITY
-              </li>
+              <li className="font-light py-2">CAN NOT FIND YOUR CITY</li>
             )}
           </ul>
         )}
