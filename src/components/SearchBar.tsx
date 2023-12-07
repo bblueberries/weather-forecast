@@ -73,12 +73,13 @@ export default function SearchBar({}: Props) {
         {value.length >= 3 && (
           <ul className="absolute px-2 py-1 rounded border border-gray-500 mt-3 w-full shadow-sm shadow-gray-300 bg-white group-hover:border-black">
             {results.length > 0 ? (
-              results.map((city) => (
-                <Link href={`/location/${city.slug}`} onClick={handleLinkClick}>
-                  <li
-                    key={city.id}
-                    className="bg-white font-light border-b p-2 last:border-none hover:bg-slate-100 hover:rounded-lg"
-                  >
+              results.map((city: cityData) => (
+                <Link
+                  href={`/location/${city.slug}`}
+                  onClick={handleLinkClick}
+                  key={city.id}
+                >
+                  <li className="bg-white font-light border-b p-2 last:border-none hover:bg-slate-100 hover:rounded-lg">
                     {city.name}
                     {city.state ? `, ${city.state}` : ""}
                     &nbsp;({city.country})

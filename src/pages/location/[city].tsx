@@ -39,8 +39,6 @@ export async function getServerSideProps(context: any) {
     };
   }
 
-  console.log(data.forecast.forecastday[0]);
-
   return {
     props: {
       todayWeather: data.forecast.forecastday[0],
